@@ -8,6 +8,6 @@ interface IProps {
 
 export class Hello extends React.Component<IProps, {}> {
    render() {
-   return <h1>This is a {this.props.framework} application using  my own  {this.props.compiler} with {this.props.bundler}</h1>
+   return <h1>Hello. This is a {this.props.framework} application using  my own  {this.props.compiler} with {this.props.bundler}</h1>
    }
 }
