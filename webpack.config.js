@@ -1,11 +1,10 @@
 const path = require('path'),
-    webpack = require('webpack'),
     HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: {
-        app: ['./src/app/App.tsx', 'webpack-hot-middleware/client'],
-        vendor: ['react', 'react-dom']
+        app: ['./src/app/App.tsx'],
+        vendor: ['react', 'react-dom', 'whatwg-fetch']
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -25,7 +24,6 @@ module.exports = {
         ]
     },
     plugins: [
-        new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'src', 'app', 'index.html') }),
-        new webpack.HotModuleReplacementPlugin()
+        new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'src', 'app', 'index.html') })
     ]
 }

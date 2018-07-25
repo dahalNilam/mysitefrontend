@@ -1,6 +1,16 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { Hello } from './components/Hello';
+import { render } from 'react-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-ReactDOM.render(<Hello compiler="Typescript" framework="React" bundler="Webpack" />,
-document.getElementById('root'));
+import Homepage from './pages/Homepage';
+import About from './pages/About';
+
+render(
+    <BrowserRouter>
+        <Switch>
+            <Route path="/" component={Homepage} exact />
+            <Route path="/about" component={About} />
+        </Switch>
+    </BrowserRouter>,
+    document.getElementById('root')
+);
