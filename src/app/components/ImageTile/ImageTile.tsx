@@ -21,7 +21,7 @@ export default class ImageTile extends React.Component<IProps, IState> {
     }
 
     public componentDidMount() {
-        ImageApi.getById().then((imageBlob) => {
+        ImageApi.getById(this.props.housing.images[0].id).then((imageBlob) => {
             this.setState({
                 imageBlob
             })

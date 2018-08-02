@@ -1,9 +1,9 @@
 const baseUrl = "http://localhost:5000/api/image";
 
 export class ImageApi {
-    static getById() {
+    static getById(id: number) {
         return new Promise((resolve) => {
-            fetch(`${baseUrl}/1`).then((response) => {
+            fetch(`${baseUrl}/${id}`).then((response) => {
                 response.arrayBuffer().then((buffer) => {
                     const base64Flag = 'data:image/jpeg;base64,';
                     const imageStr = base64Flag + ImageApi.arrayBufferToBase64(buffer);
