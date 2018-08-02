@@ -34,9 +34,7 @@ export default class Homepage extends React.Component<{}, IState> {
                 <h1>This is a Homepage</h1>
 
                 {housings && housings.map((housing: IHousing) =>
-                    <div key={housing.id}>
-                        <ImageTile housing={housing} />
-                    </div>
+                    <ImageTile housing={housing} key={housing.id} />
                 )}
             </>
         );

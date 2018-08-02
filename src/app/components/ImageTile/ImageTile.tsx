@@ -6,6 +6,7 @@ import {
 
 import { IHousing } from '../../interfaces/IHousing';
 import { ImageApi } from '../../api/Image';
+import { HousingType } from '../../enums/HousingType';
 
 interface IProps {
     housing: IHousing
@@ -33,16 +34,18 @@ export default class ImageTile extends React.Component<IProps, IState> {
         const imageBlob = this.state.imageBlob;
 
         return (
-            <div>
-                <Card>
-                    <CardImg top width="100%" src={imageBlob} alt="Card image cap" style={{ width: "400px" }} />
-                    <CardBody>
-                        <CardTitle>{housing.type}</CardTitle>
-                        <CardSubtitle>{housing.price}</CardSubtitle>
-                        <CardText>{housing.description}</CardText>
-                    </CardBody>
-                </Card>
-            </div>
+            <Card style={{ width: 350, height: 400, margin: 5, float: "left" }}>
+                <CardTitle style={{ textAlign: "center", marginTop: 5 }}>{HousingType[housing.type]}</CardTitle>
+
+                <div style={{ width: 320, height: "auto", marginLeft: 15 }}>
+                    <CardImg top width="100%" src={imageBlob} />
+                </div>
+
+                <CardBody>
+                    <CardSubtitle>Price: ${housing.price}</CardSubtitle>
+                    <CardText>Desc: {housing.description}</CardText>
+                </CardBody>
+            </Card>
         );
     }
 }
