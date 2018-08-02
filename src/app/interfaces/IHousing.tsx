@@ -1,3 +1,5 @@
+import { IImage } from "./IImage";
+
 export interface IHousing {
     id: number,
     price: number,
@@ -5,4 +7,5 @@ export interface IHousing {
     numberOfBedroom: number,
     numberOfBathroom: number,
     description: string,
+    images: IImage[],
 }

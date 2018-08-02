@@ -1,5 +1,3 @@
-import { IHousing } from "../interfaces/IHousing";
-
 const baseUrl = "http://localhost:5000/api/housing";
 
 export class HousingApi {
