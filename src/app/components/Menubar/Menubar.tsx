@@ -13,13 +13,19 @@ import {
     DropdownItem
 } from 'reactstrap';
 
-interface IState {
-    isOpen: boolean,
+interface IProps {
+    onAddHousing: () => void,
 }
 
-export default class Menubar extends React.Component<{}, IState> {
+interface IState {
+    isOpen: boolean,
+    isAddHousingModalOpen: boolean,
+}
+
+export default class Menubar extends React.Component<IProps, IState> {
     public readonly state = {
         isOpen: false,
+        isAddHousingModalOpen: false,
     }
 
     private toggle = () => {
@@ -41,11 +47,11 @@ export default class Menubar extends React.Component<{}, IState> {
                             </NavItem>
                             <UncontrolledDropdown nav inNavbar>
                                 <DropdownToggle nav caret>
-                                    About
+                                    Admin
                                 </DropdownToggle>
                                 <DropdownMenu right>
-                                    <DropdownItem>
-                                        Contact Us
+                                    <DropdownItem onClick={() => this.props.onAddHousing()}>
+                                        Add New Housing
                                     </DropdownItem>
                                     <DropdownItem divider />
                                     <DropdownItem>
