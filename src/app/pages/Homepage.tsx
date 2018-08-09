@@ -36,8 +36,11 @@ export default class Homepage extends React.Component<{}, IState> {
         this.toggleAddHousingModal();
     }
 
-    private addHousing = () => {
-        console.log("Add Housing");
+    private addHousing = (housing: IHousing) => {
+        HousingApi.add(housing).then((res) => {
+            console.log(res)
+            this.fetchAllHousings();
+        });
 
         this.toggleAddHousingModal();
     }

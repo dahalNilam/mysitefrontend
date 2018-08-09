@@ -22,7 +22,13 @@ export default class ImageTile extends React.Component<IProps, IState> {
     }
 
     public componentDidMount() {
-        ImageApi.getById(this.props.housing.images[0].id).then((imageBlob) => {
+        const { housing } = this.props;
+
+        if (!housing.images || housing.images.length < 1) {
+            return;
+        }
+
+        ImageApi.getById(housing.images[0].id).then((imageBlob) => {
             this.setState({
                 imageBlob
             })
@@ -31,14 +37,15 @@ export default class ImageTile extends React.Component<IProps, IState> {
 
     public render() {
         const housing = this.props.housing;
-        const imageBlob = this.state.imageBlob;
 
         return (
             <Card style={{ width: 350, height: 400, margin: 5, float: "left" }}>
-                <CardTitle style={{ textAlign: "center", marginTop: 5 }}>{HousingType[housing.type]}</CardTitle>
+                <CardTitle style={{ textAlign: "center", marginTop: 5 }}>
+                    {housing.type && HousingType[housing.type]}
+                </CardTitle>
 
                 <div style={{ width: 320, height: "auto", marginLeft: 15 }}>
-                    <CardImg top width="100%" src={imageBlob} />
+                    <CardImg top width="100%" src={this.state.imageBlob} />
                 </div>
 
                 <CardBody>

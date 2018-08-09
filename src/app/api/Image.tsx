@@ -1,3 +1,5 @@
+import { IImage } from "../interfaces/IImage";
+
 const baseUrl = "http://localhost:5000/api/image";
 
 export class ImageApi {
@@ -11,6 +13,20 @@ export class ImageApi {
                     return resolve(imageStr);
                 });
 
+            });
+        });
+    }
+
+    static upload(image: File) {
+        let data = new FormData();
+        data.append('image', image);
+
+        return new Promise((resolve) => {
+            return fetch(baseUrl, {
+                method: 'POST',
+                body: data,
+            }).then((response) => {
+                return resolve(response);
             });
         });
     }

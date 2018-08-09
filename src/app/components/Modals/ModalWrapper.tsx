@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalHeader } from 'reactstrap';
+
 import { IModalProps } from './IModalProps';
 
 interface IProps {
@@ -9,21 +10,19 @@ interface IProps {
 export default class ModalWrapper extends React.Component<IProps> {
     public render() {
         const { props, children } = this.props;
-        const { isOpen, title, submit, close } = props;
+        const { isOpen, close, title } = props;
 
         return (
             <div>
                 <Modal isOpen={isOpen}>
-                    <ModalHeader >{title}</ModalHeader>
+                    <ModalHeader>
+                        {title}
+                        <Button onClick={close} style={{ float: "right" }}>
+                            Close
+                        </Button>
+                    </ModalHeader>
 
-                    <ModalBody>
-                        {children}
-                    </ModalBody>
-
-                    <ModalFooter>
-                        <Button color="primary" onClick={submit}>Submit</Button>{' '}
-                        <Button color="secondary" onClick={close}>Cancel</Button>
-                    </ModalFooter>
+                    {children}
                 </Modal>
             </div>
         );
