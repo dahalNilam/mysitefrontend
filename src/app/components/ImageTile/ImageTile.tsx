@@ -4,8 +4,8 @@ import {
     CardTitle, CardSubtitle
 } from 'reactstrap';
 
-import { IHousing } from '../../interfaces/IHousing';
-import { ImageApi } from '../../api/Image';
+import { IHousing } from '../../interfaces';
+import { ImageApi } from '../../api';
 import { HousingType } from '../../enums/HousingType';
 
 interface IProps {

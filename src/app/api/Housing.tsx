@@ -1,9 +1,9 @@
 import { HousingType } from "../enums/HousingType";
-import { IHousing } from "../interfaces/IHousing";
+import { IHousing } from "../interfaces";
 
 const baseUrl = "http://localhost:5000/api/housing";
 
-export class HousingApi {
+export default class HousingApi {
 
     static getAll() {
         return fetch(baseUrl).then(response => response.json());

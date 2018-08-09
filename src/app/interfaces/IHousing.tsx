@@ -1,7 +1,7 @@
-import { IImage } from "./IImage";
+import IImage from "./IImage";
 import { HousingType } from "../enums/HousingType";
 
-export interface IHousing {
+export default interface IHousing {
     id?: number,
     price?: number,
     type?: HousingType,

@@ -1,4 +1,4 @@
-export interface IImage {
+export default interface IImage {
     fileName: string,
     housingId: number,
     id: number,

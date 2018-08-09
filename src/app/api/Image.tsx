@@ -1,8 +1,6 @@
-import { IImage } from "../interfaces/IImage";
-
 const baseUrl = "http://localhost:5000/api/image";
 
-export class ImageApi {
+export default class ImageApi {
     static getById(id: number) {
         return new Promise((resolve) => {
             fetch(`${baseUrl}/${id}`).then((response) => {

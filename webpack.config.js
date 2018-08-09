@@ -4,7 +4,7 @@ const path = require('path'),
 module.exports = {
     entry: {
         app: ['./src/app/App.tsx'],
-        vendor: ['react', 'react-dom', 'whatwg-fetch']
+        vendor: ['react', 'react-dom', 'whatwg-fetch'],
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -12,13 +12,13 @@ module.exports = {
     },
     devtool: 'source-map',
     resolve: {
-        extensions: ['.js', '.jsx', '.json', '.ts', '.tsx']
+        extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
     },
     module: {
         rules: [
             {
                 test: /\.(ts|tsx)$/,
-                loader: 'ts-loader'
+                loader: 'ts-loader',
             },
             {
                 test: /\.css$/,

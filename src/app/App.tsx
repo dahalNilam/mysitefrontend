@@ -7,7 +7,6 @@ import './../styles/app.css';
 import Homepage from './pages/Homepage';
 import About from './pages/About';
 
-
 render(
     <BrowserRouter>
         <Switch>

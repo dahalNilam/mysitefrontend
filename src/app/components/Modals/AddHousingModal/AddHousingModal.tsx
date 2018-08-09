@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { Col, Form, FormGroup, Label, Input, InputGroup, InputGroupAddon, Button, ModalBody, ModalFooter } from 'reactstrap';
+import { Col, Form, FormGroup, Label, Input, InputGroup, InputGroupAddon, Button, Modal, ModalHeader, ModalBody, ModalFooter }
+    from 'reactstrap';
 import Select from 'react-select';
-import ModalWrapper from '../ModalWrapper';
-import { IModalProps } from '../IModalProps';
-import { HousingApi } from '../../../api/Housing';
-import { IHousing } from '../../../interfaces/IHousing';
+import { HousingApi } from '../../../api';
+import { IHousing } from '../../../interfaces';
 import { HousingType } from '../../../enums/HousingType';
 
 interface ISelectOption {
@@ -16,7 +15,10 @@ interface IState {
     selectedHousingType: ISelectOption,
 }
 
-interface IProps extends IModalProps {
+interface IProps {
+    isOpen: boolean,
+    title: string,
+    close: () => void,
     submit: (housing: IHousing) => void
 }
 
@@ -99,8 +101,17 @@ export default class AddHousingModal extends React.Component<IProps, IState> {
     }
 
     public render() {
+        const { title, isOpen, close, } = this.props;
+
         return (
-            <ModalWrapper props={this.props}>
+            <Modal isOpen={isOpen}>
+                <ModalHeader>
+                    {title}
+                    <Button onClick={close}>
+                        Close
+                    </Button>
+                </ModalHeader>
+
                 <ModalBody>
                     <Form>
                         <FormGroup row>
@@ -117,14 +128,14 @@ export default class AddHousingModal extends React.Component<IProps, IState> {
                         <FormGroup row>
                             <Label for="noOfBedroom" sm={4} md={4} lg={4}>No of Bedroom</Label>
                             <Col sm={8} md={8} lg={8}>
-                                <Input defaultValue={"1"} onChange={this.handleNumberOfBedroomChange} type="number" name="noOfBedroom" id="noOfBedroom" stem="1" />
+                                <Input onChange={this.handleNumberOfBedroomChange} type="number" name="noOfBedroom" id="noOfBedroom" stem="1" />
                             </Col>
                         </FormGroup>
 
                         <FormGroup row>
                             <Label for="noOfBathroom" sm={4} md={4} lg={4}>No of Bathroom</Label>
                             <Col sm={8} md={8} lg={8}>
-                                <Input defaultValue={"1"} onChange={this.handleNumberOfBathroomChange} type="number" name="noOfBathroom" id="noOfBathroom" step="1" />
+                                <Input onChange={this.handleNumberOfBathroomChange} type="number" name="noOfBathroom" id="noOfBathroom" step="1" />
                             </Col>
                         </FormGroup>
 
@@ -133,7 +144,7 @@ export default class AddHousingModal extends React.Component<IProps, IState> {
                             <Col sm={8} md={8} lg={8}>
                                 <InputGroup>
                                     <InputGroupAddon addonType="prepend">$</InputGroupAddon>
-                                    <Input defaultValue={"1"} onChange={this.handlePriceChange} type="number" name="price" id="price" />
+                                    <Input onChange={this.handlePriceChange} type="number" name="price" id="price" />
                                 </InputGroup>
                             </Col>
                         </FormGroup>
@@ -141,7 +152,7 @@ export default class AddHousingModal extends React.Component<IProps, IState> {
                         <FormGroup row>
                             <Label for="description" sm={4} md={4} lg={4}>Description</Label>
                             <Col sm={8} md={8} lg={8}>
-                                <Input defaultValue={"1"} onChange={this.handleDescriptionChange} type="textarea" name="description" id="description" />
+                                <Input onChange={this.handleDescriptionChange} type="textarea" name="description" id="description" />
                             </Col>
                         </FormGroup>
                     </Form>
@@ -151,8 +162,7 @@ export default class AddHousingModal extends React.Component<IProps, IState> {
                     <Button color="primary" onClick={this.handleSubmitForm}>Submit</Button>{' '}
                     <Button color="secondary" onClick={this.props.close}>Cancel</Button>
                 </ModalFooter>
-
-            </ModalWrapper>
+            </Modal>
         );
     }
 }

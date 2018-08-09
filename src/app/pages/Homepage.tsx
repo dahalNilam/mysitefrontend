@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { HousingApi } from '../api/Housing';
-import { IHousing } from '../interfaces/IHousing';
+import { HousingApi } from '../api';
+import { IHousing } from '../interfaces';
 import { Menubar } from '../components/Menubar';
 import { ImageTile } from '../components/ImageTile';
 import { AddHousingModal } from '../components/Modals/AddHousingModal';
