@@ -1,6 +1,6 @@
 export default interface IImage {
+    id?: number,
+    path?: string,
     fileName: string,
-    housingId: number,
-    id: number,
-    path: string,
+    housingId?: number,
 }

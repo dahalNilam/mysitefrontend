@@ -1,8 +1,13 @@
 import * as React from 'react';
-import { Col, Form, FormGroup, Label, Input, InputGroup, InputGroupAddon, Button, Modal, ModalHeader, ModalBody, ModalFooter }
-    from 'reactstrap';
+import {
+    Col,
+    Form, FormGroup,
+    Label, Button,
+    Input, InputGroup, InputGroupAddon,
+    Modal, ModalHeader, ModalBody, ModalFooter
+} from 'reactstrap';
 import Select from 'react-select';
-import { HousingApi } from '../../../api';
+import { HousingApi, ImageApi } from '../../../api';
 import { IHousing } from '../../../interfaces';
 import { HousingType } from '../../../enums/HousingType';
 
@@ -96,6 +101,29 @@ export default class AddHousingModal extends React.Component<IProps, IState> {
         });
     }
 
+    private handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files && event.target.files[0];
+
+        if (!file) {
+            return;
+        }
+
+        ImageApi.upload(file).then(() => {
+            const image = {
+                fileName: file.name,
+            };
+
+            const images = [image];
+
+            this.setState({
+                housing: {
+                    ...this.state.housing,
+                    images,
+                }
+            });
+        });
+    }
+
     private handleSubmitForm = () => {
         this.props.submit(this.state.housing);
     }
@@ -153,6 +181,13 @@ export default class AddHousingModal extends React.Component<IProps, IState> {
                             <Label for="description" sm={4} md={4} lg={4}>Description</Label>
                             <Col sm={8} md={8} lg={8}>
                                 <Input onChange={this.handleDescriptionChange} type="textarea" name="description" id="description" />
+                            </Col>
+                        </FormGroup>
+
+                        <FormGroup>
+                            <Label for="imageFile" sm={4} md={4} lg={4}>Image</Label>
+                            <Col sm={8} md={8} lg={8}>
+                                <Input onChange={this.handleImageChange} type="file" name="file" id="imageFile" />
                             </Col>
                         </FormGroup>
                     </Form>
