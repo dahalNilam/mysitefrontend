@@ -32,6 +32,7 @@ export default class AddHousingModal extends React.Component<IProps, IState> {
 
     public readonly state: IState = {
         housing: {
+            id: -1,
             price: 0,
             type: HousingType.Apartment,
             numberOfBedroom: 0,

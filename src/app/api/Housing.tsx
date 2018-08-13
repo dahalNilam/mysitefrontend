@@ -24,6 +24,21 @@ export default class HousingApi {
         });
     }
 
+    static remove(id: number) {
+        return new Promise((resolve) => {
+            return fetch(baseUrl, {
+                method: 'delete',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(id)
+            }).then((response) => {
+                return resolve(response);
+            });
+        });
+    }
+
     static getHousingType() {
         return Object.keys(HousingType)
             .filter(housingType => typeof HousingType[housingType as any] !== "number")

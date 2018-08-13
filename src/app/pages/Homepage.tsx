@@ -2,7 +2,7 @@ import * as React from 'react';
 import { HousingApi } from '../api';
 import { IHousing } from '../interfaces';
 import { Menubar } from '../components/Menubar';
-import { ImageTile } from '../components/ImageTile';
+import { HousingTile } from '../components/HousingTile';
 import { AddHousingModal } from '../components/Modals/AddHousingModal';
 
 interface IState {
@@ -38,7 +38,6 @@ export default class Homepage extends React.Component<{}, IState> {
 
     private addHousing = (housing: IHousing) => {
         HousingApi.add(housing).then((res) => {
-            console.log(res)
             this.fetchAllHousings();
         });
 
@@ -60,7 +59,7 @@ export default class Homepage extends React.Component<{}, IState> {
                 <h1>This is a Homepage</h1>
 
                 {housings && housings.map((housing: IHousing) =>
-                    <ImageTile housing={housing} key={housing.id} />
+                    <HousingTile housing={housing} key={housing.id} />
                 )}
 
                 <AddHousingModal

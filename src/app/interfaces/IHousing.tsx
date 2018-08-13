@@ -2,7 +2,7 @@ import IImage from "./IImage";
 import { HousingType } from "../enums/HousingType";
 
 export default interface IHousing {
-    id?: number,
+    id: number,
     price?: number,
     type?: HousingType,
     numberOfBedroom?: number,
