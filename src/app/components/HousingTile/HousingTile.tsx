@@ -11,6 +11,7 @@ import HousingOptions from './components/HousingOptions';
 import { ConfirmationModal } from '../Modals/ConfirmationModal';
 import { registerModal, showModalByType } from '../Modals';
 import { ModalTypes } from '../Modals/ModalTypes';
+import ImageGallery from './components/ImageGallery';
 
 interface IProps {
     housing: IHousing;
@@ -78,7 +79,7 @@ export default class HousingTile extends React.Component<IProps, IState> {
                     </CardTitle>
 
                     <div style={{ width: 320, height: "auto", marginLeft: 15 }}>
-                        <CardImg top width="100%" src={this.state.imageBlob} />
+                        {housing.images && <ImageGallery images={housing.images} />}
                     </div>
 
                     <CardBody>
