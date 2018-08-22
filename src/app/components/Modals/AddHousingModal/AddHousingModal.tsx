@@ -10,27 +10,45 @@ import Select from 'react-select';
 import { HousingApi, ImageApi } from '../../../api';
 import { IHousing } from '../../../interfaces';
 import { HousingType } from '../../../enums/HousingType';
+import { IModal } from "./../IModal";
+import { ModalTypes } from '../ModalTypes';
 
 interface ISelectOption {
     value: string, label: string
 }
 
 interface IState {
+    isOpen: boolean,
     housing: IHousing,
     selectedHousingType: ISelectOption,
 }
 
 interface IProps {
-    isOpen: boolean,
-    title: string,
-    close: () => void,
-    submit: (housing: IHousing) => void
+    submit: (housing: IHousing) => void;
 }
 
-export default class AddHousingModal extends React.Component<IProps, IState> {
+interface ICallbackProps {
+}
+
+export default class AddHousingModal extends React.Component<IProps, IState> implements IModal<ICallbackProps>  {
+    public type = ModalTypes.AddHousingModal;
+
+    public show = () => {
+        this.setState({
+            isOpen: true,
+        });
+    };
+
+    public close = () => {
+        this.setState({
+            isOpen: false,
+        });
+    };
+
     private static housingTypes = HousingApi.getHousingType();;
 
     public readonly state: IState = {
+        isOpen: false,
         housing: {
             id: -1,
             price: 0,
@@ -127,18 +145,17 @@ export default class AddHousingModal extends React.Component<IProps, IState> {
 
     private handleSubmitForm = () => {
         this.props.submit(this.state.housing);
+
+        this.close();
     }
 
     public render() {
-        const { title, isOpen, close, } = this.props;
+        const { isOpen } = this.state;
 
         return (
-            <Modal isOpen={isOpen}>
+            <Modal isOpen={isOpen} toggle={this.close}>
                 <ModalHeader>
-                    {title}
-                    <Button onClick={close}>
-                        Close
-                    </Button>
+                    Add New Housing
                 </ModalHeader>
 
                 <ModalBody>
@@ -196,7 +213,7 @@ export default class AddHousingModal extends React.Component<IProps, IState> {
 
                 <ModalFooter>
                     <Button color="primary" onClick={this.handleSubmitForm}>Submit</Button>{' '}
-                    <Button color="secondary" onClick={this.props.close}>Cancel</Button>
+                    <Button color="secondary" onClick={this.close}>Cancel</Button>
                 </ModalFooter>
             </Modal>
         );

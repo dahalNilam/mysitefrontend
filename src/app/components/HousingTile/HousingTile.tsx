@@ -9,6 +9,8 @@ import { ImageApi, HousingApi } from '../../api';
 import { HousingType } from '../../enums/HousingType';
 import HousingOptions from './components/HousingOptions';
 import { ConfirmationModal } from '../Modals/ConfirmationModal';
+import { registerModal, showModalByType } from '../Modals';
+import { ModalTypes } from '../Modals/ModalTypes';
 
 interface IProps {
     housing: IHousing;
@@ -50,18 +52,11 @@ export default class HousingTile extends React.Component<IProps, IState> {
     }
 
     private deleteHousing = () => {
-
-        console.log("Delete housing: " + this.props.housing.id);
-
         HousingApi.remove(this.props.housing.id);
-
-        this.toggleConfirmationModal();
     }
 
-    private toggleConfirmationModal = () => {
-        this.setState({
-            isConfirmationModalOpen: !this.state.isConfirmationModalOpen,
-        });
+    private showConfirmationModal = () => {
+        showModalByType(ModalTypes.ConfirmationModal, { title: "Are you sure?" });
     }
 
     public render() {
@@ -77,7 +72,7 @@ export default class HousingTile extends React.Component<IProps, IState> {
                         <span style={{ float: "right", marginRight: 10 }}>
                             <HousingOptions
                                 edit={this.editHousing}
-                                delete={this.toggleConfirmationModal}
+                                delete={this.showConfirmationModal}
                             />
                         </span>
                     </CardTitle>
@@ -93,9 +88,8 @@ export default class HousingTile extends React.Component<IProps, IState> {
                 </Card>
 
                 <ConfirmationModal
-                    isOpen={this.state.isConfirmationModalOpen}
-                    close={this.toggleConfirmationModal}
-                    confirm={this.deleteHousing}
+                    ref={registerModal}
+                    onConfirm={this.deleteHousing}
                 />
             </>
         );

@@ -14,7 +14,7 @@ import {
 } from 'reactstrap';
 
 interface IProps {
-    onAddHousing: () => void,
+    onAddHousing: (event: React.MouseEvent<any>) => void,
 }
 
 interface IState {
@@ -50,7 +50,7 @@ export default class Menubar extends React.Component<IProps, IState> {
                                     Admin
                                 </DropdownToggle>
                                 <DropdownMenu right>
-                                    <DropdownItem onClick={() => this.props.onAddHousing()}>
+                                    <DropdownItem onClick={this.props.onAddHousing}>
                                         Add New Housing
                                     </DropdownItem>
                                     <DropdownItem divider />

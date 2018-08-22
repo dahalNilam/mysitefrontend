@@ -4,6 +4,8 @@ import { IHousing } from '../interfaces';
 import { Menubar } from '../components/Menubar';
 import { HousingTile } from '../components/HousingTile';
 import { AddHousingModal } from '../components/Modals/AddHousingModal';
+import { showModalByType, registerModal, registerModalWithId } from '../components/Modals';
+import { ModalTypes } from '../components/Modals/ModalTypes';
 
 interface IState {
     housings: any;
@@ -28,25 +30,13 @@ export default class Homepage extends React.Component<{}, IState> {
         });
     }
 
-    private openAddHousingModal = () => {
-        this.toggleAddHousingModal();
-    }
-
-    private closeAddHousingModal = () => {
-        this.toggleAddHousingModal();
+    private showAddHousingModal = (event: React.MouseEvent<any>) => {
+        showModalByType(ModalTypes.AddHousingModal);
     }
 
     private addHousing = (housing: IHousing) => {
         HousingApi.add(housing).then((res) => {
             this.fetchAllHousings();
-        });
-
-        this.toggleAddHousingModal();
-    }
-
-    private toggleAddHousingModal = () => {
-        this.setState({
-            isAddHousingModalOpen: !this.state.isAddHousingModalOpen
         });
     }
 
@@ -55,19 +45,14 @@ export default class Homepage extends React.Component<{}, IState> {
 
         return (
             <>
-                <Menubar onAddHousing={this.openAddHousingModal} />
+                <Menubar onAddHousing={this.showAddHousingModal} />
                 <h1>This is a Homepage</h1>
 
                 {housings && housings.map((housing: IHousing) =>
                     <HousingTile housing={housing} key={housing.id} />
                 )}
 
-                <AddHousingModal
-                    isOpen={this.state.isAddHousingModalOpen}
-                    title="Add New Housing"
-                    submit={this.addHousing}
-                    close={this.closeAddHousingModal}
-                />
+                <AddHousingModal ref={registerModal} submit={this.addHousing} />
             </>
         );
     }
