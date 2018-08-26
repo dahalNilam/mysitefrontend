@@ -1,5 +1,5 @@
 import IImage from "./IImage";
-import { HousingType } from "../enums/HousingType";
+import { HousingType } from "../Enums/HousingType";
 
 export default interface IHousing {
     id: number,

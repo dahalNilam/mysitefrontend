@@ -1,17 +1,17 @@
 import * as React from 'react';
 import {
-    Card, CardImg, CardText, CardBody,
+    Card, CardText, CardBody,
     CardTitle, CardSubtitle
 } from 'reactstrap';
 
-import { IHousing } from '../../interfaces';
-import { ImageApi, HousingApi } from '../../api';
-import { HousingType } from '../../enums/HousingType';
-import HousingOptions from './components/HousingOptions';
+import { IHousing } from '../../Interfaces';
+import { ImageApi, HousingApi } from '../../Api';
+import { HousingType } from '../../Enums/HousingType';
+import HousingOptions from './Components/HousingOptions';
 import { ConfirmationModal } from '../Modals/ConfirmationModal';
 import { registerModal, showModalByType } from '../Modals';
 import { ModalTypes } from '../Modals/ModalTypes';
-import ImageGallery from './components/ImageGallery';
+import ImageGallery from './Components/ImageGallery';
 
 interface IProps {
     housing: IHousing;

@@ -3,13 +3,13 @@ import {
     Col,
     Form, FormGroup,
     Label, Button,
-    Input, InputGroup, InputGroupAddon,
+    Input, InputGroup, InputGroupAddon, CustomInput,
     Modal, ModalHeader, ModalBody, ModalFooter
 } from 'reactstrap';
 import Select from 'react-select';
-import { HousingApi, ImageApi } from '../../../api';
-import { IHousing } from '../../../interfaces';
-import { HousingType } from '../../../enums/HousingType';
+import { HousingApi, ImageApi } from '../../../Api';
+import { IHousing } from '../../../Interfaces';
+import { HousingType } from '../../../Enums/HousingType';
 import { IModal } from "./../IModal";
 import { ModalTypes } from '../ModalTypes';
 
@@ -128,11 +128,13 @@ export default class AddHousingModal extends React.Component<IProps, IState> imp
         }
 
         ImageApi.upload(file).then(() => {
-            const image = {
-                fileName: file.name,
-            };
+            let images = this.state.housing.images;
 
-            const images = [image];
+            if (!images) {
+                images = [];
+            }
+
+            images.push({ fileName: file.name });
 
             this.setState({
                 housing: {
@@ -202,10 +204,16 @@ export default class AddHousingModal extends React.Component<IProps, IState> imp
                             </Col>
                         </FormGroup>
 
-                        <FormGroup>
-                            <Label for="imageFile" sm={4} md={4} lg={4}>Image</Label>
+                        <FormGroup row>
                             <Col sm={8} md={8} lg={8}>
-                                <Input onChange={this.handleImageChange} type="file" name="file" id="imageFile" />
+                                <CustomInput type="file" id="imageFile" name="customFile" onChange={this.handleImageChange} />
+                            </Col>
+                            <Col sm={4} md={4} lg={4}>
+                                {this.state.housing.images && this.state.housing.images.map((p, i) => {
+                                    <Label>
+                                        {i}> {p.fileName}
+                                    </Label>
+                                })}
                             </Col>
                         </FormGroup>
                     </Form>

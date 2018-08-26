@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { HousingApi } from '../api';
-import { IHousing } from '../interfaces';
-import { Menubar } from '../components/Menubar';
-import { HousingTile } from '../components/HousingTile';
-import { AddHousingModal } from '../components/Modals/AddHousingModal';
-import { showModalByType, registerModal, registerModalWithId } from '../components/Modals';
+import { HousingApi } from '../Api';
+import { IHousing } from '../Interfaces';
+import { Menubar } from '../Components/Menubar';
+import { HousingTile } from '../Components/HousingTile';
+import { AddHousingModal } from '../Components/Modals/AddHousingModal';
+import { showModalByType, registerModal } from '../Components/Modals';
 import { ModalTypes } from '../components/Modals/ModalTypes';
 
 interface IState {
