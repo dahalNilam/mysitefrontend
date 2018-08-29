@@ -4,6 +4,6 @@ import {
   showModal,
   showModalById,
   showModalByType,
-} from "./modalHandler";
+} from "./ModalHandler";
 
 export { registerModal, showModal, showModalByType, registerModalWithId, showModalById };

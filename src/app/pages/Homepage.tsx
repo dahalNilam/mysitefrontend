@@ -5,7 +5,7 @@ import { Menubar } from '../Components/Menubar';
 import { HousingTile } from '../Components/HousingTile';
 import { AddHousingModal } from '../Components/Modals/AddHousingModal';
 import { showModalByType, registerModal } from '../Components/Modals';
-import { ModalTypes } from '../components/Modals/ModalTypes';
+import { ModalTypes } from '../Components/Modals/ModalTypes';
 
 interface IState {
     housings: any;

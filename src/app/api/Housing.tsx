@@ -1,5 +1,5 @@
-import { HousingType } from "../enums/HousingType";
-import { IHousing } from "../interfaces";
+import { HousingType } from "../Enums/HousingType";
+import { IHousing } from "../Interfaces";
 
 const baseUrl = "http://localhost:5000/api/housing";
 
