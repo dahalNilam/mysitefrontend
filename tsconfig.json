@@ -1,35 +1,49 @@
-{
-  "compilerOptions": {
-    "outDir": "build/dist",
-    "module": "commonjs",
-    "target": "es5",
-    "lib": [
-      "es6",
-      "dom"
-    ],
-    "sourceMap": true,
-    "allowJs": true,
-    "jsx": "react",
-    "moduleResolution": "node",
-    "rootDir": "src",
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-  },
-  "include": [
-    "./src/**/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "build",
-    "scripts",
-    "acceptance-tests",
-    "webpack",
-    "jest",
-    "src/setupTests.ts"
-  ],
-  "types": [
-    "typePatches"
-  ]
-}
+{ 
+  "compilerOptions": { 
+  "baseUrl": "src", 
+  
+  "target": "es2015", 
+  "module": "esnext", 
+  "moduleResolution": "node", 
+  "allowJs": true, 
+  "jsx": "react", 
+  "sourceMap": true, 
+  
+  "strict": true, 
+  
+  "types": [ 
+  "node", 
+  "webpack", 
+  "webpack-env", 
+  "react", 
+  "react-select", 
+  "react-router", 
+  "react-fa", 
+  "immutable", 
+  "jest" 
+  ], 
+  "noImplicitAny": false, 
+  "allowUnreachableCode": false, 
+  "noFallthroughCasesInSwitch": true, 
+  "allowSyntheticDefaultImports": true, 
+  "pretty": true, 
+  "strictNullChecks": true, 
+  "alwaysStrict": true, 
+  "experimentalDecorators": true, 
+  "noImplicitThis": false, 
+  "skipLibCheck": true, 
+  
+  "paths": { 
+  "Src/*": ["*"], 
+  "App/*": ["App/*"], 
+  "Components/*": ["App/Components/*"], 
+  "Enums/*": ["App/Enums/*"], 
+  "Pages/*": ["App/Pages/*"], 
+  "API/*": ["App/Api/*"] 
+  }, 
+  
+  "typeRoots": ["node_modules/@types", "../definitions"] 
+  }, 
+  "exclude": ["node_modules", "**/node_modules/*", "dist", "bin", "public"], 
+  "include": ["src/**/*", "definitions/**/*"] 
+  } 

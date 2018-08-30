@@ -1,5 +1,21 @@
 {
     "presets": [
-        "es2015"
+        "react",
+        [
+            "env",
+            {
+                "targets": {
+                    "browsers": [
+                        "last 2 versions",
+                        "ie >= 11"
+                    ]
+                },
+                "modules": false
+            }
+        ]
+    ],
+    "plugins": [
+        "lodash",
+        "syntax-dynamic-import"
     ]
 }
