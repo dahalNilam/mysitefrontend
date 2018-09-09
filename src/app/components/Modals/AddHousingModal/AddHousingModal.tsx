@@ -15,11 +15,11 @@ import {
   ModalFooter
 } from "reactstrap";
 import Select, { Option } from "react-select";
-import { HousingApi, ImageApi } from "../../../Api";
-import { IHousing } from "../../../Interfaces";
-import { HousingType } from "../../../Enums/HousingType";
-import { IModal } from "./../IModal";
-import { ModalTypes } from "../ModalTypes";
+import { HousingApi, ImageApi } from "App/Api";
+import { IHousing } from "App/Interfaces";
+import { HousingType } from "App/Enums/HousingType";
+import { IModal } from "App/Components/Modals/IModal";
+import { ModalTypes } from "App/Components/Modals/ModalTypes";
 
 interface IState {
   isOpen: boolean;

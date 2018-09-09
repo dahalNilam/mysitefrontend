@@ -1,100 +1,102 @@
-import * as React from 'react';
-import { Icon } from 'react-fa';
-import { Button } from 'reactstrap';
-import { IImage } from '../../../Interfaces';
-import { ImageApi } from '../../../Api';
+import * as React from "react";
+import { Icon } from "react-fa";
+import { Button } from "reactstrap";
+import { IImage } from "App/Interfaces";
+import { ImageApi } from "App/Api";
 
 interface IState {
-    currentImageIndex: number;
-    imageBlob: {};
+  currentImageIndex: number;
+  imageBlob: {};
 }
 
 interface IProps {
-    images: IImage[];
-    style?: {}
+  images: IImage[];
+  style?: {};
 }
 
 export default class ImageGallery extends React.Component<IProps, IState> {
-    public readonly state = {
-        currentImageIndex: 0,
-        imageBlob: "",
+  public readonly state = {
+    currentImageIndex: 0,
+    imageBlob: ""
+  };
+
+  public componentDidMount() {
+    const { images } = this.props;
+    const { currentImageIndex } = this.state;
+
+    if (!images || images.length < 1) {
+      return;
     }
 
-    public componentDidMount() {
-        const { images } = this.props;
-        const { currentImageIndex } = this.state;
+    this.loadImage(currentImageIndex);
+  }
 
-        if (!images || images.length < 1) {
-            return;
-        }
+  private loadImage = (imageIndex: number) => {
+    const { images } = this.props;
 
-        this.loadImage(currentImageIndex)
+    const image = images[imageIndex];
+
+    if (!image || !image.id) {
+      return;
     }
 
-    private loadImage = (imageIndex: number) => {
-        const { images } = this.props;
+    ImageApi.getById(image.id).then(imageBlob => {
+      this.setState({
+        imageBlob
+      });
+    });
+  };
 
-        const image = images[imageIndex];
+  private handleNext = () => {
+    const { images } = this.props;
 
-        if (!image || !image.id) {
-            return;
-        }
+    const currentImageIndex =
+      (this.state.currentImageIndex + 1) % images.length;
 
-        ImageApi.getById(image.id).then((imageBlob) => {
-            this.setState({
-                imageBlob
-            })
-        });
-    }
+    this.setState({
+      currentImageIndex
+    });
 
-    private handleNext = () => {
-        const { images } = this.props;
+    this.loadImage(currentImageIndex);
+  };
 
-        const currentImageIndex = (this.state.currentImageIndex + 1) % images.length;
+  private handlePrevious = () => {
+    const { images } = this.props;
 
-        this.setState({
-            currentImageIndex,
-        });
+    const currentImageIndex =
+      (this.state.currentImageIndex + 1) % images.length;
 
-        this.loadImage(currentImageIndex);
-    }
+    this.setState({
+      currentImageIndex
+    });
 
-    private handlePrevious = () => {
-        const { images } = this.props;
+    this.loadImage(currentImageIndex);
+  };
 
-        const currentImageIndex = (this.state.currentImageIndex + 1) % images.length;
+  render() {
+    const { style, images } = this.props;
+    const { imageBlob } = this.state;
 
-        this.setState({
-            currentImageIndex,
-        });
+    return (
+      <div style={{ ...style, textAlign: "center" }}>
+        <img src={imageBlob} style={{ width: "100%", maxHeight: 180 }} />
 
-        this.loadImage(currentImageIndex);
-    }
+        {images.length > 1 && (
+          <>
+            <div style={{ float: "left", width: "50%", marginTop: 5 }}>
+              <Button style={{ width: "90%" }} onClick={this.handlePrevious}>
+                <Icon name="backward" />
+              </Button>
+            </div>
 
-    render() {
-        const { style, images } = this.props;
-        const { imageBlob } = this.state;
-
-        return (
-            <div style={{ ...style, textAlign: "center" }}>
-                <img src={imageBlob} style={{ width: "100%", maxHeight: 180 }} />
-
-                {images.length > 1 &&
-                    <>
-                        < div style={{ float: "left", width: "50%", marginTop: 5 }}>
-                            <Button style={{ width: "90%" }} onClick={this.handlePrevious}>
-                                <Icon name="backward" />
-                            </Button>
-                        </div>
-
-                        <div style={{ float: "right", width: "50%", marginTop: 5 }}>
-                            <Button style={{ width: "90%" }} onClick={this.handleNext}>
-                                <Icon name="forward" />
-                            </Button>
-                        </div>
-                    </>
-                }
-            </div >
-        );
-    }
+            <div style={{ float: "right", width: "50%", marginTop: 5 }}>
+              <Button style={{ width: "90%" }} onClick={this.handleNext}>
+                <Icon name="forward" />
+              </Button>
+            </div>
+          </>
+        )}
+      </div>
+    );
+  }
 }
