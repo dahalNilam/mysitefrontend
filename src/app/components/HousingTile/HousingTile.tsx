@@ -44,7 +44,11 @@ export default class HousingTile extends React.Component<IProps, IState> {
     });
   }
 
-  private editHousing = () => {};
+  private editHousing = () => {
+    showModalByType(ModalTypes.AddHousingModal, {
+      housing: this.props.housing
+    });
+  };
 
   private deleteHousing = () => {
     HousingApi.remove(this.props.housing.id);

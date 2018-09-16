@@ -24,23 +24,30 @@ import { ModalTypes } from "App/Components/Modals/ModalTypes";
 interface IState {
   isOpen: boolean;
   housing: IHousing;
-  selectedHousingType: Option;
 }
 
 interface IProps {
   submit: (housing: IHousing) => void;
 }
 
-interface ICallbackProps {}
+interface ICallbackProps {
+  housing?: IHousing;
+}
 
 export default class AddHousingModal extends React.Component<IProps, IState>
   implements IModal<ICallbackProps> {
   public type = ModalTypes.AddHousingModal;
 
-  public show = () => {
+  public show = (params: { housing?: IHousing }) => {
     this.setState({
       isOpen: true
     });
+
+    if (params && params.housing) {
+      this.setState({
+        housing: params.housing
+      });
+    }
   };
 
   public close = () => {
@@ -61,18 +68,11 @@ export default class AddHousingModal extends React.Component<IProps, IState>
       numberOfBathroom: 0,
       description: "",
       images: []
-    },
-    selectedHousingType: { value: "", label: "" }
+    }
   };
 
   private handleHousingTypeChange = selectedOption => {
-    this.setState({
-      selectedHousingType: selectedOption
-    });
-
-    const value = selectedOption.value ? selectedOption.value : "0";
-
-    const type = parseInt(value, 10) as HousingType;
+    const type = this.getHousingType(selectedOption);
 
     this.setState({
       housing: {
@@ -80,6 +80,16 @@ export default class AddHousingModal extends React.Component<IProps, IState>
         type
       }
     });
+  };
+
+  private getHousingType = (option): HousingType => {
+    const value = option.value ? option.value : "0";
+
+    return parseInt(value, 10) as HousingType;
+  };
+
+  private getHousingTypeOption = (type): Option => {
+    return { value: type, label: HousingType[type] };
   };
 
   private handleNumberOfBedroomChange = (
@@ -164,7 +174,7 @@ export default class AddHousingModal extends React.Component<IProps, IState>
   };
 
   public render() {
-    const { isOpen } = this.state;
+    const { isOpen, housing } = this.state;
 
     return (
       <Modal isOpen={isOpen} toggle={this.close}>
@@ -178,7 +188,7 @@ export default class AddHousingModal extends React.Component<IProps, IState>
               </Label>
               <Col sm={8} md={8} lg={8}>
                 <Select
-                  value={this.state.selectedHousingType}
+                  value={this.getHousingTypeOption(housing.type)}
                   onChange={this.handleHousingTypeChange}
                   options={AddHousingModal.housingTypes}
                 />
@@ -196,6 +206,7 @@ export default class AddHousingModal extends React.Component<IProps, IState>
                   name="noOfBedroom"
                   id="noOfBedroom"
                   stem="1"
+                  value={housing.numberOfBedroom ? housing.numberOfBedroom : ""}
                 />
               </Col>
             </FormGroup>
@@ -211,6 +222,9 @@ export default class AddHousingModal extends React.Component<IProps, IState>
                   name="noOfBathroom"
                   id="noOfBathroom"
                   step="1"
+                  value={
+                    housing.numberOfBathroom ? housing.numberOfBathroom : ""
+                  }
                 />
               </Col>
             </FormGroup>
@@ -227,6 +241,7 @@ export default class AddHousingModal extends React.Component<IProps, IState>
                     type="number"
                     name="price"
                     id="price"
+                    value={housing.price ? housing.price : ""}
                   />
                 </InputGroup>
               </Col>
@@ -242,6 +257,7 @@ export default class AddHousingModal extends React.Component<IProps, IState>
                   type="textarea"
                   name="description"
                   id="description"
+                  value={housing.description ? housing.description : ""}
                 />
               </Col>
             </FormGroup>
@@ -256,8 +272,8 @@ export default class AddHousingModal extends React.Component<IProps, IState>
                 />
               </Col>
               <Col sm={4} md={4} lg={4}>
-                {this.state.housing.images &&
-                  this.state.housing.images.map((p, i) => {
+                {housing.images &&
+                  housing.images.map((p, i) => {
                     <Label>
                       {i}> {p.fileName}
                     </Label>;

@@ -35,9 +35,15 @@ export default class Homepage extends React.Component<{}, IState> {
   };
 
   private addHousing = (housing: IHousing) => {
-    HousingApi.add(housing).then(res => {
-      this.fetchAllHousings();
-    });
+    if (housing.id) {
+      HousingApi.update(housing).then(res => {
+        this.fetchAllHousings();
+      });
+    } else {
+      HousingApi.add(housing).then(res => {
+        this.fetchAllHousings();
+      });
+    }
   };
 
   public render() {
