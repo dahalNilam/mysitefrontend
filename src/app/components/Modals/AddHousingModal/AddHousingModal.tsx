@@ -12,11 +12,12 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter
+  ModalFooter,
+  Row
 } from "reactstrap";
 import Select, { Option } from "react-select";
 import { HousingApi, ImageApi } from "App/Api";
-import { IHousing } from "App/Interfaces";
+import { IHousing, IImage } from "App/Interfaces";
 import { HousingType } from "App/Enums/HousingType";
 import { IModal } from "App/Components/Modals/IModal";
 import { ModalTypes } from "App/Components/Modals/ModalTypes";
@@ -149,14 +150,14 @@ export default class AddHousingModal extends React.Component<IProps, IState>
       return;
     }
 
-    ImageApi.upload(file).then(() => {
+    ImageApi.upload(file).then((image: IImage) => {
       let images = this.state.housing.images;
 
       if (!images) {
         images = [];
       }
 
-      images.push({ fileName: file.name });
+      images.push(image);
 
       this.setState({
         housing: {
@@ -263,22 +264,34 @@ export default class AddHousingModal extends React.Component<IProps, IState>
             </FormGroup>
 
             <FormGroup row>
-              <Col sm={8} md={8} lg={8}>
-                <CustomInput
-                  type="file"
-                  id="imageFile"
-                  name="customFile"
-                  onChange={this.handleImageChange}
-                />
-              </Col>
-              <Col sm={4} md={4} lg={4}>
+              <Row>
+                <Col>
+                  <CustomInput
+                    type="file"
+                    id="imageFile"
+                    name="customFile"
+                    onChange={this.handleImageChange}
+                  />
+                </Col>
                 {housing.images &&
-                  housing.images.map((p, i) => {
-                    <Label>
-                      {i}> {p.fileName}
-                    </Label>;
-                  })}
-              </Col>
+                  housing.images.length > 0 && (
+                    <Col sm={4} md={4} lg={4}>
+                      {housing.images.length} files selected.
+                    </Col>
+                  )}
+              </Row>
+              <Row>
+                <Col>
+                  {housing.images &&
+                    housing.images.map((p, i) => {
+                      return (
+                        <div key={i}>
+                          <Label>{p.fileName}</Label>
+                        </div>
+                      );
+                    })}
+                </Col>
+              </Row>
             </FormGroup>
           </Form>
         </ModalBody>
