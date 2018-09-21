@@ -8,7 +8,7 @@ import { showModalByType, registerModal } from "App/Components/Modals";
 import { ModalTypes } from "App/Components/Modals/ModalTypes";
 
 interface IState {
-  housings: any;
+  housings: IHousing[];
   isAddHousingModalOpen: boolean;
 }
 
@@ -35,13 +35,24 @@ export default class Homepage extends React.Component<{}, IState> {
   };
 
   private addHousing = (housing: IHousing) => {
-    if (housing.id) {
-      HousingApi.update(housing).then(res => {
-        this.fetchAllHousings();
+    if (housing.id && housing.id > 0) {
+      HousingApi.update(housing).then(response => {
+        const updatedHousings = this.state.housings.map(p => {
+          if (p.id === response.id) {
+            return response;
+          }
+          return p;
+        });
+
+        this.setState({
+          housings: updatedHousings
+        });
       });
     } else {
-      HousingApi.add(housing).then(res => {
-        this.fetchAllHousings();
+      HousingApi.add(housing).then(response => {
+        this.setState({
+          housings: [...this.state.housings, response]
+        });
       });
     }
   };
