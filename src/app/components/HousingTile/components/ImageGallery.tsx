@@ -11,6 +11,7 @@ interface IState {
 
 interface IProps {
   images: IImage[];
+  showSingleImage?: boolean;
   style?: {};
 }
 
@@ -78,17 +79,31 @@ export default class ImageGallery extends React.Component<IProps, IState> {
     const { imageBlob } = this.state;
 
     return (
-      <div style={{ ...style, textAlign: "center" }}>
-        <img src={imageBlob} style={{ width: "100%", maxHeight: 180 }} />
+      <div style={{ ...style, textAlign: "center", position: "relative" }}>
+        <img src={imageBlob} style={{ width: "100%" }} />
 
-        {images.length > 1 && (
+        {this.props.showSingleImage ? (
+          images.length > 1 && (
+            <span
+              style={{
+                fontSize: "24px",
+                position: "absolute",
+                bottom: 0,
+                right: 0,
+                zIndex: 10,
+                color: "#FFF"
+              }}
+            >
+              +{images.length - 1} more images
+            </span>
+          )
+        ) : (
           <>
             <div style={{ float: "left", width: "50%", marginTop: 5 }}>
               <Button style={{ width: "90%" }} onClick={this.handlePrevious}>
                 <Icon name="backward" />
               </Button>
             </div>
-
             <div style={{ float: "right", width: "50%", marginTop: 5 }}>
               <Button style={{ width: "90%" }} onClick={this.handleNext}>
                 <Icon name="forward" />

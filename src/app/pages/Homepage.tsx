@@ -6,6 +6,7 @@ import { HousingTile } from "App/Components/HousingTile";
 import { AddHousingModal } from "App/Components/Modals/AddHousingModal";
 import { showModalByType, registerModal } from "App/Components/Modals";
 import { ModalTypes } from "App/Components/Modals/ModalTypes";
+import { ViewHousingModal } from "App/Components/Modals/ViewHousingModal";
 
 interface IState {
   housings: IHousing[];
@@ -71,6 +72,7 @@ export default class Homepage extends React.Component<{}, IState> {
         </div>
 
         <AddHousingModal ref={registerModal} submit={this.addHousing} />
+        <ViewHousingModal ref={registerModal} />
       </>
     );
   }

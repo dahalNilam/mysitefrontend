@@ -8,6 +8,7 @@ import { ConfirmationModal } from "App/Components/Modals/ConfirmationModal";
 import { registerModal, showModalByType } from "App/Components/Modals";
 import { ModalTypes } from "App/Components/Modals/ModalTypes";
 import { HousingOptions, ImageGallery } from "./Components";
+import ViewHousingModal from "../Modals/ViewHousingModal/ViewHousingModal";
 
 interface IProps {
   housing: IHousing;
@@ -50,6 +51,12 @@ export default class HousingTile extends React.Component<IProps, IState> {
     });
   };
 
+  private showHousing = () => {
+    showModalByType(ModalTypes.ViewHousingModal, {
+      housing: this.props.housing
+    });
+  };
+
   private deleteHousing = () => {
     HousingApi.remove(this.props.housing.id);
   };
@@ -76,11 +83,24 @@ export default class HousingTile extends React.Component<IProps, IState> {
             </span>
           </CardTitle>
 
-          <div style={{ width: 320, height: "auto", marginLeft: 15 }}>
-            {housing.images && <ImageGallery images={housing.images} />}
+          <div
+            style={{ width: 320, height: "auto", marginLeft: 15 }}
+            onClick={this.showHousing}
+          >
+            {housing.images && (
+              <ImageGallery
+                images={housing.images}
+                showSingleImage={true}
+                style={{
+                  maxHeight: 180,
+                  verticalAlign: "middle",
+                  overflow: "hidden"
+                }}
+              />
+            )}
           </div>
 
-          <CardBody>
+          <CardBody onClick={this.showHousing}>
             <CardSubtitle>Price: ${housing.price}</CardSubtitle>
             <CardText>Desc: {housing.description}</CardText>
           </CardBody>

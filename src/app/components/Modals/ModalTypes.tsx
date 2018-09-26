@@ -1,4 +1,5 @@
 export enum ModalTypes {
-    AddHousingModal,
-    ConfirmationModal,
+  AddHousingModal,
+  ViewHousingModal,
+  ConfirmationModal
 }

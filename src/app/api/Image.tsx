@@ -2,7 +2,7 @@ import { IImage } from "App/Interfaces";
 const baseUrl = "http://localhost:5000/api/image";
 
 export default class ImageApi {
-  static getById(id: number) {
+  static getById(id: number): Promise<string> {
     return new Promise(resolve => {
       fetch(`${baseUrl}/${id}`).then(response => {
         response.arrayBuffer().then(buffer => {
@@ -15,7 +15,7 @@ export default class ImageApi {
     });
   }
 
-  static upload(image: File) {
+  static upload(image: File): Promise<IImage> {
     let data = new FormData();
     data.append("image", image);
 
@@ -29,12 +29,12 @@ export default class ImageApi {
     });
   }
 
-  static arrayBufferToBase64 = (buffer: ArrayBuffer) => {
+  static arrayBufferToBase64(buffer: ArrayBuffer): string {
     let binary = "";
     const bytes = [].slice.call(new Uint8Array(buffer));
 
     bytes.forEach((b: number) => (binary += String.fromCharCode(b)));
 
     return window.btoa(binary);
-  };
+  }
 }

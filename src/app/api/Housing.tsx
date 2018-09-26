@@ -4,7 +4,7 @@ import { IHousing } from "../Interfaces";
 const baseUrl = "http://localhost:5000/api/housing";
 
 export default class HousingApi {
-  static getAll() {
+  static getAll(): Promise<IHousing[]> {
     return fetch(baseUrl).then(response => response.json());
   }
 
@@ -55,7 +55,10 @@ export default class HousingApi {
     });
   }
 
-  static getHousingType() {
+  static getHousingType(): {
+    value: string;
+    label: string;
+  }[] {
     return Object.keys(HousingType)
       .filter(
         housingType => typeof HousingType[housingType as any] !== "number"
