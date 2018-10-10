@@ -3,6 +3,7 @@ import { Icon } from "react-fa";
 import { Button } from "reactstrap";
 import { IImage } from "App/Interfaces";
 import { ImageApi } from "App/Api";
+import ImageControl from "./ImageControl/ImageControl";
 
 interface IState {
   currentImageIndex: number;
@@ -75,41 +76,28 @@ export default class ImageGallery extends React.Component<IProps, IState> {
   };
 
   render() {
-    const { style, images } = this.props;
+    const { style, images, showSingleImage } = this.props;
     const { imageBlob } = this.state;
 
     return (
-      <div style={{ ...style, textAlign: "center", position: "relative" }}>
-        <img src={imageBlob} style={{ width: "100%" }} />
-
-        {this.props.showSingleImage ? (
-          images.length > 1 && (
-            <span
-              style={{
-                fontSize: "24px",
-                position: "absolute",
-                bottom: 0,
-                right: 0,
-                zIndex: 10,
-                color: "#FFF"
-              }}
-            >
-              +{images.length - 1} more images
-            </span>
-          )
-        ) : (
-          <>
-            <div style={{ float: "left", width: "50%", marginTop: 5 }}>
-              <Button style={{ width: "90%" }} onClick={this.handlePrevious}>
-                <Icon name="backward" />
-              </Button>
-            </div>
-            <div style={{ float: "right", width: "50%", marginTop: 5 }}>
-              <Button style={{ width: "90%" }} onClick={this.handleNext}>
-                <Icon name="forward" />
-              </Button>
-            </div>
-          </>
+      <div
+        style={{
+          ...style,
+          textAlign: "center",
+          position: "relative",
+          fontSize: "24px",
+          color: "#FFF"
+        }}
+      >
+        <div>
+          <img src={imageBlob} style={{ width: "100%" }} />
+        </div>
+        {images.length > 1 && (
+          <ImageControl
+            imagesCount={images.length}
+            handleNext={this.handleNext}
+            handlePrevious={this.handlePrevious}
+          />
         )}
       </div>
     );
