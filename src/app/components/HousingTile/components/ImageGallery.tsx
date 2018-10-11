@@ -1,9 +1,7 @@
 import * as React from "react";
-import { Icon } from "react-fa";
-import { Button } from "reactstrap";
 import { IImage } from "App/Interfaces";
 import { ImageApi } from "App/Api";
-import ImageControl from "./ImageControl/ImageControl";
+import { ImageControl } from "./ImageControl";
 
 interface IState {
   currentImageIndex: number;

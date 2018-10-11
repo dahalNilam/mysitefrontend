@@ -21,6 +21,7 @@ import { IHousing, IImage } from "App/Interfaces";
 import { HousingType } from "App/Enums/HousingType";
 import { IModal } from "App/Components/Modals/IModal";
 import { ModalTypes } from "App/Components/Modals/ModalTypes";
+import SeeMore from "../../SeeMore/SeeMore";
 
 interface IState {
   isOpen: boolean;
@@ -264,7 +265,7 @@ export default class AddHousingModal extends React.Component<IProps, IState>
             </FormGroup>
 
             <FormGroup row>
-              <Row>
+              <Row style={{ marginLeft: 0 }}>
                 <Col>
                   <CustomInput
                     type="file"
@@ -280,13 +281,13 @@ export default class AddHousingModal extends React.Component<IProps, IState>
                     </Col>
                   )}
               </Row>
-              <Row>
+              <Row style={{ marginLeft: 0 }}>
                 <Col>
                   {housing.images &&
                     housing.images.map((p, i) => {
                       return (
                         <div key={i}>
-                          <Label>{p.fileName}</Label>
+                          <SeeMore maxLength={25}>{p.fileName}</SeeMore>
                         </div>
                       );
                     })}

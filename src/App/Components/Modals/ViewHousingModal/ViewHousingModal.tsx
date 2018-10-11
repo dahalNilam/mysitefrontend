@@ -13,6 +13,7 @@ import { HousingType } from "App/Enums/HousingType";
 import { IModal } from "App/Components/Modals/IModal";
 import { ModalTypes } from "App/Components/Modals/ModalTypes";
 import { ImageGallery } from "App/Components/HousingTile/Components";
+import { SeeMore } from "App/Components/SeeMore";
 
 interface IState {
   isOpen: boolean;
@@ -77,10 +78,19 @@ export default class ViewHousingModal extends React.Component<{}, IState>
               </Row>
             )}
           <Row>
-            <Col>
-              Number of Bedroom: {housing.numberOfBedroom}
-              Number of Bathroom: {housing.numberOfBathroom}
-              Description: {housing.description}
+            <Col md={4} lg={4} sm={4}>
+              <div>
+                Number of Bedroom: <strong>{housing.numberOfBedroom}</strong>
+              </div>
+              <div>
+                Number of Bathroom: <strong>{housing.numberOfBathroom}</strong>
+              </div>
+            </Col>
+            <Col md={8} lg={8} sm={8}>
+              <div>
+                Description:{" "}
+                <SeeMore maxLength={25}>{housing.description}</SeeMore>
+              </div>
             </Col>
           </Row>
         </ModalBody>

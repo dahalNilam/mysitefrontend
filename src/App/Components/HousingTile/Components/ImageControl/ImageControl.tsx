@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Icon } from "react-fa";
-import { Button, Row, Col } from "reactstrap";
 
 interface IProps {
   imagesCount: number;
@@ -29,7 +28,9 @@ export default class ImageControl extends React.Component<IProps> {
     imageBlob: ""
   };
 
-  private handleNext = () => {
+  private handleNext = (event: React.MouseEvent) => {
+    event.stopPropagation();
+
     const { handleNext } = this.props;
 
     if (handleNext) {
@@ -37,7 +38,9 @@ export default class ImageControl extends React.Component<IProps> {
     }
   };
 
-  private handlePrevious = () => {
+  private handlePrevious = (event: React.MouseEvent) => {
+    event.stopPropagation();
+
     const { handlePrevious } = this.props;
 
     if (handlePrevious) {
