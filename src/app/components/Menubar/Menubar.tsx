@@ -12,6 +12,7 @@ import {
   DropdownMenu,
   DropdownItem
 } from "reactstrap";
+import { SearchBar } from "App/Components/SearchBar";
 
 interface IProps {
   onAddHousing: (event: React.MouseEvent<any>) => void;
@@ -40,6 +41,7 @@ export default class Menubar extends React.Component<IProps, IState> {
       <Navbar color="dark" light expand="md" fixed="top">
         <NavbarBrand href="/">MySite</NavbarBrand>
         <NavbarToggler onClick={this.toggle} />
+        <SearchBar />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
             <NavItem>

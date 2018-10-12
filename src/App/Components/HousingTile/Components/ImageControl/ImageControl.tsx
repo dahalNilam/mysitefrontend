@@ -10,7 +10,7 @@ interface IProps {
 const btnStyle = {
   cursor: "pointer",
   position: "absolute",
-  width: "30%",
+  width: "20%",
   padding: "5px",
   height: "100%",
   top: "0px",
@@ -58,10 +58,10 @@ export default class ImageControl extends React.Component<IProps> {
     return (
       <>
         <div style={{ ...btnStyle, left: 0 }} onClick={this.handlePrevious}>
-          <Icon name="backward" style={{ ...iconStyle, left: 0 }} />
+          <Icon name="backward" style={{ ...iconStyle }} />
         </div>
         <div style={{ ...btnStyle, right: 0 }} onClick={this.handleNext}>
-          <Icon name="forward" style={{ ...iconStyle, right: 0 }} />
+          <Icon name="forward" style={{ ...iconStyle }} />
         </div>
       </>
     );

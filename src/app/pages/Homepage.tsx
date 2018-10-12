@@ -64,6 +64,7 @@ export default class Homepage extends React.Component<{}, IState> {
     return (
       <>
         <Menubar onAddHousing={this.showAddHousingModal} />
+
         <div style={{ marginTop: 50 }}>
           {housings &&
             housings.map((housing: IHousing) => (
